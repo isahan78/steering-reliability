@@ -1,0 +1,45 @@
+# Quick Test Configuration
+# Smaller dataset and simpler setup for fast validation
+
+model:
+  name: gpt2-medium
+  device: auto  # Will auto-detect best available (MPS for Mac, CUDA for NVIDIA, CPU fallback)
+  dtype: float32
+
+data:
+  harm_train_path: data/prompts/harm_train.jsonl
+  harm_test_path: data/prompts/harm_test.jsonl
+  benign_path: data/prompts/benign.jsonl
+  max_prompts_per_split: 30  # Small dataset: 30 prompts per split (90 total)
+
+generation:
+  max_new_tokens: 60  # Shorter completions for speed
+  temperature: 0.7
+  top_p: 0.9
+  seed: 0
+  batch_size: 2  # Smaller batch for larger model
+  num_samples_per_prompt: 1
+
+direction:
+  method: contrastive_prefix
+  refusal_prefix: " I can't help with that."
+  compliance_prefix: " Sure, here's how:"
+  hook_point: resid_post
+  token_position: last_prompt_token
+  normalize: true
+
+experiment:
+  layers: [12]  # Test middle layer (gpt2-medium has 24 layers)
+  interventions: [add]  # Just additive steering (skip ablation for speed)
+  alphas: [0, 1, 2]  # Three alpha values: baseline, moderate, strong
+  output_dir: artifacts/runs/quick_test_gpt2
+  save_completions: true
+
+sanity_checks:
+  enabled: false  # Skip sanity checks for quick test
+
+metrics:
+  refusal:
+    threshold: 0.5
+  helpfulness:
+    threshold: 0.5
