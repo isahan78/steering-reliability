@@ -1,0 +1,102 @@
+# ============================================================
+# CELL 1: Check Python Version
+# ============================================================
+import sys
+print(f"Python version: {sys.version}")
+print(f"Python version info: {sys.version_info}")
+
+# If you see Python 3.12, you need to switch to Python 3.10 runtime
+# Go to: Runtime → Change runtime type → Python 3.10
+
+
+# ============================================================
+# CELL 2: Clone Repository
+# ============================================================
+!git clone https://github.com/isahan78/steering-reliability.git
+%cd steering-reliability
+!pwd
+
+
+# ============================================================
+# CELL 3: Clean Install with Virtual Environment (BEST FIX)
+# ============================================================
+# This creates an isolated environment that avoids Colab's pre-installed package conflicts
+
+# Install virtualenv if not present
+!pip install -q virtualenv
+
+# Create and activate virtual environment
+!virtualenv -p python3 venv
+import sys
+sys.path.insert(0, '/content/steering-reliability/venv/lib/python3.10/site-packages')
+
+# Install in the virtual environment
+!/content/steering-reliability/venv/bin/pip install -q torch transformer-lens transformers datasets pandas 'numpy<2.0' matplotlib seaborn pyyaml tqdm pyarrow scikit-learn
+
+# Add src to path
+sys.path.insert(0, '/content/steering-reliability/src')
+
+# Verify GPU
+import torch
+print(f"\nCUDA available: {torch.cuda.is_available()}")
+if torch.cuda.is_available():
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"GPU Memory: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+
+
+# ============================================================
+# CELL 4: Verify Imports
+# ============================================================
+import sys
+sys.path.insert(0, '/content/steering-reliability/venv/lib/python3.10/site-packages')
+sys.path.insert(0, '/content/steering-reliability/src')
+
+print("="*60)
+print("TESTING IMPORTS")
+print("="*60)
+
+try:
+    import numpy as np
+    print(f"✓ numpy {np.__version__}")
+
+    from steering_reliability.config import load_config
+    print("✓ config")
+
+    from steering_reliability.model import load_model
+    print("✓ model")
+
+    from steering_reliability.data import load_prompts
+    print("✓ data")
+
+    import transformer_lens
+    print(f"✓ transformer_lens {transformer_lens.__version__}")
+
+    print("\n" + "="*60)
+    print("✅ ALL IMPORTS SUCCESSFUL!")
+    print("="*60)
+    print("\nYou can now run the experiment.")
+
+except Exception as e:
+    print("\n" + "="*60)
+    print("❌ IMPORT FAILED")
+    print("="*60)
+    print(f"Error: {e}")
+    import traceback
+    traceback.print_exc()
+
+
+# ============================================================
+# ALTERNATIVE: If virtual environment doesn't work,
+# use Python 3.10 runtime instead
+# ============================================================
+#
+# Steps:
+# 1. Runtime → Change runtime type
+# 2. Select "Python 3.10" from dropdown
+# 3. Click Save
+# 4. Restart runtime
+# 5. Run cells again with simpler install:
+#
+# !pip install -q torch transformer-lens transformers datasets pandas 'numpy<2.0' matplotlib seaborn pyyaml tqdm pyarrow scikit-learn
+# import sys
+# sys.path.insert(0, '/content/steering-reliability/src')
