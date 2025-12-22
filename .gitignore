@@ -41,6 +41,7 @@ venv.bak/
 # Jupyter Notebooks
 .ipynb_checkpoints/
 *.ipynb_checkpoints
+colab_full_experiment_old.ipynb
 
 # Experiment artifacts (selective commits)
 *.log
