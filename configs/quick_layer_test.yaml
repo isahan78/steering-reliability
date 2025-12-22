@@ -1,7 +1,5 @@
-# Steering Reliability - Alpha Sweep (45-60 minutes)
-# Fine-tune steering strength on best layer from layer_test.yaml
-# UPDATE: Change 'layers' below to best layer found in layer_test
-# For faster iteration, reduce max_prompts_per_split to 50
+# Steering Reliability - Quick Layer Test (8-10 minutes)
+# Fast layer comparison with minimal prompts
 
 model:
   name: gpt2-medium
@@ -12,7 +10,7 @@ data:
   harm_train_path: data/prompts/harm_train.jsonl
   harm_test_path: data/prompts/harm_test.jsonl
   benign_path: data/prompts/benign.jsonl
-  max_prompts_per_split: 100  # Larger for more reliable results
+  max_prompts_per_split: 30  # Reduced for speed
 
 generation:
   max_new_tokens: 80
@@ -31,10 +29,10 @@ direction:
   normalize: true
 
 experiment:
-  layers: [12]  # UPDATE THIS: Use best layer from layer_test.yaml
-  interventions: [add, ablate]  # Test both intervention types
-  alphas: [0, 1, 2, 4, 8]  # Full alpha range
-  output_dir: artifacts/runs/alpha_sweep
+  layers: [8, 12, 16]  # Early, middle, late layers
+  interventions: [add]  # Just additive for now
+  alphas: [0, 4]  # Baseline + one strong steering strength
+  output_dir: artifacts/runs/quick_layer_test
   save_completions: true
 
 sanity_checks:

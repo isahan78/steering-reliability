@@ -1,5 +1,6 @@
-# Steering Reliability - Layer Comparison (15 minutes)
-# Test which layer provides best steering effect
+# Steering Reliability - Layer Comparison (20-30 minutes)
+# Thorough layer comparison with medium dataset
+# For faster iteration, use quick_layer_test.yaml instead
 
 model:
   name: gpt2-medium
