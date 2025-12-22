@@ -29,9 +29,9 @@ direction:
   normalize: true
 
 experiment:
-  layers: [12]  # Just middle layer
+  layers: [12, 16]  # Middle and late layers (need 2+ for heatmaps)
   interventions: [add]  # Just additive steering
-  alphas: [0, 2]  # Baseline + one steering strength
+  alphas: [0, 2, 4]  # Baseline + two steering strengths
   output_dir: artifacts/runs/smoke_test
   save_completions: true
 
