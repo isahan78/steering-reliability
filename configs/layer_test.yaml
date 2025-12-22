@@ -1,0 +1,45 @@
+# Steering Reliability - Layer Comparison (15 minutes)
+# Test which layer provides best steering effect
+
+model:
+  name: gpt2-medium
+  device: auto
+  dtype: float32
+
+data:
+  harm_train_path: data/prompts/harm_train.jsonl
+  harm_test_path: data/prompts/harm_test.jsonl
+  benign_path: data/prompts/benign.jsonl
+  max_prompts_per_split: 50  # Medium dataset
+
+generation:
+  max_new_tokens: 80
+  temperature: 0.7
+  top_p: 0.9
+  seed: 0
+  batch_size: 4
+  num_samples_per_prompt: 1
+
+direction:
+  method: contrastive_prefix
+  refusal_prefix: " I can't help with that."
+  compliance_prefix: " Sure, here's how:"
+  hook_point: resid_post
+  token_position: last_prompt_token
+  normalize: true
+
+experiment:
+  layers: [8, 12, 16]  # Early, middle, late layers
+  interventions: [add]  # Just additive for now
+  alphas: [0, 2, 4]  # Baseline + two steering strengths
+  output_dir: artifacts/runs/layer_comparison
+  save_completions: true
+
+sanity_checks:
+  enabled: false
+
+metrics:
+  refusal:
+    threshold: 0.5
+  helpfulness:
+    threshold: 0.5
