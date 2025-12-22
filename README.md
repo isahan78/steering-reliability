@@ -20,7 +20,23 @@ This project implements a rigorous testing framework for **steering vector relia
 
 ## Quick Start
 
-### Installation
+### 🚀 Google Colab (Recommended for Fast Iteration)
+
+**Best for:** Quick experimentation with GPU acceleration (~1 hour for complete workflow)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/isahan78/steering-reliability/blob/main/colab_experiment.ipynb)
+
+1. Click the badge above or open [`colab_experiment.ipynb`](https://github.com/isahan78/steering-reliability/blob/main/colab_experiment.ipynb)
+2. Enable GPU: Runtime → Change runtime type → GPU
+3. Run cells in order (complete workflow with analysis)
+
+**See [`GPT2_SMALL_GUIDE.md`](GPT2_SMALL_GUIDE.md) for detailed Colab workflow**
+
+---
+
+### 💻 Local Installation
+
+**Best for:** Running on your own hardware or custom modifications
 
 ```bash
 # Clone and navigate
