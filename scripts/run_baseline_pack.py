@@ -22,7 +22,7 @@ from tqdm import tqdm
 
 from steering_reliability.model import load_model
 from steering_reliability.data import load_prompts
-from steering_reliability.config import Config
+from steering_reliability.config import load_config
 from steering_reliability.directions.build_direction import (
     build_contrastive_direction,
     build_shuffled_contrast_direction,
@@ -127,7 +127,7 @@ def main():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Load config
-    config = Config.from_yaml(args.config)
+    config = load_config(args.config)
 
     print("="*80)
     print("BASELINE PACK EXPERIMENT")
