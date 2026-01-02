@@ -1,0 +1,13 @@
+{
+  "layer": 8,
+  "hook_point": "resid_post",
+  "token_position": "last_prompt_token",
+  "n_prompts": 50,
+  "refusal_prefix": " I can't help with that.",
+  "compliance_prefix": " Sure, here's how:",
+  "direction_norm": 1.1488231393741444e-05,
+  "mean_diff_norm": 4.293242091080174e-05,
+  "std_diff_norm": 2.740455965977162e-05,
+  "normalized": true,
+  "final_norm": 0.9999999403953552
+}
