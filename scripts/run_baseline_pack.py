@@ -36,8 +36,8 @@ from steering_reliability.directions.benign_contrast import (
     build_benign_contrast_direction
 )
 from steering_reliability.generation import generate_completions
-from steering_reliability.metrics.refusal import score_refusal
-from steering_reliability.metrics.helpfulness import score_helpfulness
+from steering_reliability.metrics.refusal import compute_refusal_score
+from steering_reliability.metrics.helpfulness import compute_helpfulness_score
 
 
 def run_baseline_condition(
@@ -73,12 +73,12 @@ def run_baseline_condition(
     # Score each completion
     for prompt, completion in zip(prompts_data['prompts'], completions):
         # Refusal score
-        refusal_score = score_refusal(completion)
+        refusal_score, _ = compute_refusal_score(completion)
         is_refusal = refusal_score >= 0.5
 
         # Helpfulness score (for benign only)
         if split_name == 'benign':
-            helpfulness_score = score_helpfulness(completion)
+            helpfulness_score = compute_helpfulness_score(completion)
             is_helpful = helpfulness_score >= 0.5
         else:
             helpfulness_score = None
