@@ -36,6 +36,7 @@ from steering_reliability.directions.benign_contrast import (
     build_benign_contrast_direction
 )
 from steering_reliability.generation import generate_completions
+from steering_reliability.interventions.steer import create_steering_hook_fn
 from steering_reliability.metrics.refusal import compute_refusal_score
 from steering_reliability.metrics.helpfulness import compute_helpfulness_score
 
@@ -54,20 +55,29 @@ def run_baseline_condition(
     """Run one baseline condition and return results."""
     results = []
 
+    # Create steering hooks for ablation (skip if alpha=0)
+    if alpha == 0:
+        hook_fn = None  # No intervention
+    else:
+        hook_fn = create_steering_hook_fn(
+            direction=direction,
+            alpha=alpha,
+            layer=layer,
+            intervention_type='ablate',
+            hook_point=config.direction.hook_point
+        )
+
     # Generate completions with ablation
     completions = generate_completions(
         model=model,
         prompts=prompts_data['prompts'],
-        layer=layer,
-        alpha=alpha,
-        direction=direction,
-        mode='ablate',  # Always use ablation for baseline pack
         max_new_tokens=config.generation.max_new_tokens,
         temperature=config.generation.temperature,
         top_p=config.generation.top_p,
         seed=config.generation.seed,
         batch_size=config.generation.batch_size,
-        show_progress=False
+        show_progress=False,
+        hook_fn=hook_fn
     )
 
     # Score each completion
