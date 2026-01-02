@@ -150,9 +150,14 @@ def main():
 
     # Load prompts (subsample)
     print("Loading prompts...")
-    harm_train_data = load_prompts(config.data.harm_train_path, max_prompts=args.n_harm_test)
-    harm_test_data = load_prompts(config.data.harm_test_path, max_prompts=args.n_harm_test)
-    benign_data = load_prompts(config.data.benign_path, max_prompts=args.n_benign)
+    harm_train_raw = load_prompts(config.data.harm_train_path, max_prompts=args.n_harm_test)
+    harm_test_raw = load_prompts(config.data.harm_test_path, max_prompts=args.n_harm_test)
+    benign_raw = load_prompts(config.data.benign_path, max_prompts=args.n_benign)
+
+    # Extract prompt strings from loaded dictionaries
+    harm_train_data = {'prompts': [p['prompt'] for p in harm_train_raw]}
+    harm_test_data = {'prompts': [p['prompt'] for p in harm_test_raw]}
+    benign_data = {'prompts': [p['prompt'] for p in benign_raw]}
 
     print(f"✓ Loaded {len(harm_train_data['prompts'])} harm_train prompts")
     print(f"✓ Loaded {len(harm_test_data['prompts'])} harm_test prompts")
