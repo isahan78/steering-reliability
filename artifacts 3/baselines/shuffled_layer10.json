@@ -1,0 +1,15 @@
+{
+  "direction_type": "shuffled_contrast",
+  "layer": 10,
+  "hook_point": "resid_post",
+  "token_position": "last_prompt_token",
+  "n_prompts": 50,
+  "refusal_prefix": " I can't help with that.",
+  "compliance_prefix": " Sure, here's how:",
+  "shuffle_seed": 42,
+  "direction_norm": 1.953088940354064e-05,
+  "mean_diff_norm": 86.87541198730469,
+  "std_diff_norm": 26.664684295654297,
+  "normalized": true,
+  "final_norm": 0.9999998807907104
+}

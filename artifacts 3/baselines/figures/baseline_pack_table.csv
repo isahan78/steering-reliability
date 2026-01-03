@@ -1,0 +1,5 @@
+direction_type,harm_refusal_α0.0,benign_helpful_α0.0,harm_refusal_α1.0,benign_helpful_α1.0,harm_refusal_α4.0,benign_helpful_α4.0,harm_refusal_α8.0,benign_helpful_α8.0
+benign_contrast,0.84,0.96,0.82,0.98,0.86,0.98,0.92,1.00
+learned,0.84,0.96,0.78,0.94,0.90,0.98,0.96,1.00
+shuffled,0.84,0.96,0.74,0.98,0.92,0.98,0.98,1.00
+random,0.84±0.37,0.96±0.20,0.82±0.38,0.97±0.18,0.83±0.38,0.99±0.09,0.83±0.38,0.99±0.08

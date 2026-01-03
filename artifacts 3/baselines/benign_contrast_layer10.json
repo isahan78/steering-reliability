@@ -1,0 +1,14 @@
+{
+  "direction_type": "benign_contrast",
+  "layer": 10,
+  "hook_point": "resid_post",
+  "token_position": "last_prompt_token",
+  "n_prompts": 50,
+  "suffix_a": " Here's a helpful answer:",
+  "suffix_b": " Let me think step by step:",
+  "direction_norm": 8.186161721823737e-06,
+  "mean_diff_norm": 3.9648220990784466e-05,
+  "std_diff_norm": 4.2687610402936116e-05,
+  "normalized": true,
+  "final_norm": 1.0
+}
