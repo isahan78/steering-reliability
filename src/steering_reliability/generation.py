@@ -89,6 +89,11 @@ def generate_completions(
         for i, prompt in enumerate(batch):
             full_text = model.to_string(generated[i])
 
+            # Remove BOS token if present
+            bos_token = model.tokenizer.bos_token or "<|endoftext|>"
+            if full_text.startswith(bos_token):
+                full_text = full_text[len(bos_token):]
+
             # Remove the prompt from the beginning
             if full_text.startswith(prompt):
                 completion = full_text[len(prompt):]
@@ -198,6 +203,12 @@ def generate_batch(
     completions = []
     for i, prompt in enumerate(prompts):
         full_text = model.to_string(generated[i])
+
+        # Remove BOS token if present
+        bos_token = model.tokenizer.bos_token or "<|endoftext|>"
+        if full_text.startswith(bos_token):
+            full_text = full_text[len(bos_token):]
+
         if full_text.startswith(prompt):
             completion = full_text[len(prompt):]
         else:
